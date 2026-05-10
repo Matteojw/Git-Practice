@@ -32,7 +32,14 @@
             text-align: center;
         }
 
-        header h1 { font-size: 3.5rem; margin-bottom: 10px; text-shadow: 2px 2px 10px rgba(0,0,0,0.3); }
+        header h1 {
+            font-size: 3.5rem;
+            background: linear-gradient(to right, #ffab91, #d4af37);
+            -webkit-background-clip: text;
+            background-clip: text; 
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
         
         .btn {
             background-color: var(--gold);
@@ -66,18 +73,12 @@
 
         .product-card img { width: 100%; border-radius: 10px; height: 200px; object-fit: cover; }
         .product-card h3 { color: var(--warm-orange); }
-    h1 { 
-    font-size: 3.5rem; 
-    background: linear-gradient(to right, #ffab91, #d4af37); /* Pink to Gold gradient */
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-weight: 800;
-}</style>
+    </style>
 </head>
 <body>
 
     <header>
-        <h1>Nüwa</h1>
+        <h1>NÜWA</h1>
         <p>Hormone-balancing tea blends for every phase.</p>
         <a href="#" class="btn">Explore the Collection</a>
     </header>
