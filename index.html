@@ -1,18 +1,49 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Matteo's Space Lab</title>
+    <meta charset="UTF-8">
+    <title>Matteo's NASA Gallery</title>
     <style>
-        body { background: #0b0d17; color: white; font-family: sans-serif; text-align: center; padding: 50px; }
-        h1 { color: #4cc9f0; }
-        .card { border: 1px solid #333; padding: 20px; border-radius: 15px; display: inline-block; }
+        body { background: #05070a; color: white; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-align: center; padding: 20px; }
+        h1 { color: #4cc9f0; text-shadow: 0 0 10px #4cc9f0; }
+        #space-card { background: #111; border: 1px solid #333; padding: 20px; border-radius: 20px; max-width: 600px; margin: 20px auto; display: none; }
+        img { width: 100%; border-radius: 10px; margin-top: 15px; box-shadow: 0 0 20px rgba(76, 201, 240, 0.3); }
+        .loader { color: #aaa; font-style: italic; }
     </style>
 </head>
 <body>
-    <h1>🚀 Matteo's Developer Journey</h1>
-    <div class="card">
-        <p>I am learning to talk to NASA and build cool things.</p>
-        <p>Current Status: <strong>Level 1 Developer</strong></p>
+
+    <h1>🚀 Mission Control</h1>
+    <p>Live data from NASA Astronomy API</p>
+
+    <div id="loading" class="loader">Contacting satellite...</div>
+
+    <div id="space-card">
+        <h2 id="title"></h2>
+        <img id="pic" src="" alt="NASA Pic">
+        <p id="explanation" style="font-size: 0.9em; line-height: 1.6; text-align: left; padding: 10px;"></p>
     </div>
+
+    <script>
+        // The Browser's version of your NASA script
+        async function loadSpaceData() {
+            try {
+                const response = await fetch('https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY');
+                const data = await response.json();
+
+                document.getElementById('title').innerText = data.title;
+                document.getElementById('pic').src = data.url;
+                document.getElementById('explanation').innerText = data.explanation;
+                
+                // Hide loader and show card
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('space-card').style.display = 'block';
+            } catch (error) {
+                document.getElementById('loading').innerText = "Mission Failed: Check your connection.";
+            }
+        }
+
+        loadSpaceData();
+    </script>
 </body>
 </html>
