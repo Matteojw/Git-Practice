@@ -1,9 +1,11 @@
-console.log("--- THE DEVELOPER QUEST ---");
+// This takes the name you type in the terminal
+const args = process.argv.slice(2);
+const yourName = args[0] || "Guest";
 
-let name = "Matteo"; 
-let status = "Level 1: Git Master";
+console.log(`--- WELCOME TO THE GRID, ${yourName.toUpperCase()} ---`);
 
-console.log("Hero: " + name);
-console.log("Current Rank: " + status);
-
-console.log("Success! You just ran your first script on your own machine.");
+if (args.length > 0) {
+    console.log("Status: Access Granted.");
+} else {
+    console.log("Status: Accessing as Guest. (Try: node newfile.js YourName)");
+}
