@@ -12,16 +12,23 @@
             --deep-text: #4e342e;
         }
 
-        body { 
-            margin: 0; font-family: 'Georgia', serif; 
-            background-color: #fffaf0; color: var(--deep-text); 
+                body { 
+            margin: 0; 
+            font-family: 'Georgia', serif; 
+            /* This is a very soft, warm "Blush" pink */
+            background-color: #fff5f5; 
+            color: var(--deep-text); 
         }
 
         /* HERO SECTION */
-        header {
+                header {
             height: 80vh;
-            background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), 
-                        url('https://images.unsplash.com/photo-1594631252845-29fc45865157?auto=format&fit=crop&q=80&w=1200');
+            /* This creates a warm pink-to-orange glow over the image */
+            background: linear-gradient(
+                rgba(255, 171, 145, 0.7), 
+                rgba(252, 228, 236, 0.8)
+            ), 
+            url('https://images.unsplash.com/photo-1594631252845-29fc45865157?auto=format&fit=crop&q=80&w=1200');
             background-size: cover;
             background-position: center;
             display: flex;
