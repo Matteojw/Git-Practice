@@ -62,44 +62,47 @@
         <p id="explanation"></p>
     </div>
 
-    <script>
-        const datePicker = document.getElementById('date-picker');
+    <script>const datePicker = document.getElementById('date-picker');
+const MY_KEY = 'PcT3xw1DZauNjp6QQjxW1yzw6vCaZdrfHw9N0KZt'; // <--- PUT YOUR KEY HERE
+
+async function loadSpaceData(date = "") {
+    const loading = document.getElementById('loading');
+    const card = document.getElementById('space-card');
+    const picContainer = document.getElementById('pic');
+    
+    loading.style.display = 'block';
+    card.style.display = 'none';
+
+    try {
+        const url = `https://api.nasa.gov/planetary/apod?api_key=${MY_KEY}&date=${date}`;
+        const response = await fetch(url);
         
-        // Set default date to today
-        const today = new Date().toISOString().split('T')[0];
-        datePicker.value = today;
+        if (!response.ok) throw new Error('NASA is busy');
+        
+        const data = await response.json();
 
-        async function loadSpaceData(date = "") {
-            const loading = document.getElementById('loading');
-            const card = document.getElementById('space-card');
-            
-            loading.style.display = 'block';
-            card.style.display = 'none';
+        document.getElementById('title').innerText = data.title;
+        document.getElementById('explanation').innerText = data.explanation;
 
-            try {
-                // The URL now adds the date parameter!
-                const url = `https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&date=${date}`;
-                const response = await fetch(url);
-                const data = await response.json();
-
-                document.getElementById('title').innerText = data.title;
-                document.getElementById('pic').src = data.url;
-                document.getElementById('explanation').innerText = data.explanation;
-                
-                loading.style.display = 'none';
-                card.style.display = 'block';
-            } catch (error) {
-                loading.innerText = "Error: This sector of space is unreachable.";
-            }
+        // NEW: Check if it's a video or image
+        if (data.media_type === 'video') {
+            picContainer.style.display = 'none';
+            loading.innerHTML = `Today is a video! <a href="${data.url}" target="_blank" style="color:#4cc9f0">Click here to watch it.</a>`;
+        } else {
+            picContainer.src = data.url;
+            picContainer.style.display = 'block';
+            loading.style.display = 'none';
+            card.style.display = 'block';
         }
+        
+    } catch (error) {
+        console.log(error);
+        loading.innerText = "Connection lost. NASA might be at capacity. Try again in a minute!";
+    }
+}
 
-        // Listen for date changes!
-        datePicker.addEventListener('change', (e) => {
-            loadSpaceData(e.target.value);
-        });
-
-        // Initial load
-        loadSpaceData(today);
+datePicker.addEventListener('change', (e) => loadSpaceData(e.target.value));
+loadSpaceData(datePicker.value);
     </script>
 </body>
 </html>
